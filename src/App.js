@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Navbar from './comps/Navbar';
 import SignUp from './comps/SignUp';
+import SignIn from './comps/SignIn';
 
 
 
@@ -20,6 +21,9 @@ export default function App() {
        <Switch>
          <Route exact path="/signup">
           <SignUp/>
+         </Route>
+         <Route path="/signin">
+           <SignIn/>
          </Route>
        </Switch>
      </Router>
