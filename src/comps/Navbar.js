@@ -14,7 +14,7 @@ export default function Navbar (){
                   <IconButton>
                     <HomeRoundedIcon color="secondary" fontSize="large"/>
                   </IconButton>
-                  <Typography>Scipio-Code</Typography>
+                  <Typography>Scipio-Code 01</Typography>
               </Toolbar>
           </AppBar>
         </Container>
