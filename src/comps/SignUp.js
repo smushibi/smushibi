@@ -1,5 +1,5 @@
 import { Button, Container, Grid, Paper, TextField, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import LockIcon from '@material-ui/icons/Lock';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -8,6 +8,9 @@ import SendIcon from '@material-ui/icons/Send';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import LinearProgress from '@material-ui/core/LinearProgress';
+// firebase config /import
+import { signup} from "../firebase/auth"
 
 const schema = yup.object().shape({
     firstName: yup.string().required("your last name ! "),
@@ -15,20 +18,29 @@ const schema = yup.object().shape({
     email: yup.string().email(" invalid email !").required("enter your email !"),
     password: yup.string().required("your password ! "),
   });
-
+ 
+ 
 const SignUp = () => {
-
-const { register, handleSubmit, formState:{ errors } } = useForm({
+const [loading, setLoading] = useState(true)
+const { register, handleSubmit,reset, formState:{ errors } } = useForm({
         resolver: yupResolver(schema)
 });
-const onSubmit = data => console.log(data);
-
+const onSubmit = async(data) => {
+    try {
+        await signup(data);
+        reset();
+        setLoading(false)
+    }catch(error){
+        console.log(error)
+    }
+}
 
 
     return (
         
         <Container >
             <form onSubmit={handleSubmit(onSubmit)}>
+                {loading && <Container><LinearProgress/></Container>}
                 <Paper elevation={2}>
                     <Grid container spacing={3} 
                         alignItems="center" 
