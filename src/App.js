@@ -10,6 +10,7 @@ import {
 import Navbar from './comps/Navbar';
 import SignUp from './comps/SignUp';
 import SignIn from './comps/SignIn';
+import "./firebase/configf"
 
 
 
