@@ -16,7 +16,8 @@ useEffect(()=>{
     const unsubscribe = firebase.auth().onAuthStateChanged((user)=>{
 
         setSession({loading:false, user})
-        console.log(`user in state`, user)
+        console.log(`user in state`, user.displayName)
+        console.log(`user in state`, user.email)
     })
     return ()=> unsubscribe();
 },[]);

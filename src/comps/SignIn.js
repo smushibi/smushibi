@@ -28,23 +28,19 @@ const onSubmit = data => console.log(data);
                 <Paper elevation={2}>
                     <Grid container spacing={3} 
                         alignItems="center" 
-                        
                         direction="column"
                         justify="center">
                         <Grid item >
                             <Typography variant="h4" color="primary">Sign In </Typography>
                         </Grid>
-
                         <Grid item>
                             <TextField size="small" {...register("email")}required InputProps={{endAdornment: < EmailIcon  fontSize="small"/> }} type="email" label="email" variant="outlined"/>
                             <Typography color="error">{errors.email?.message}</Typography>
                         </Grid>
-
                         <Grid item>
                             <TextField size="small" {...register("password")} required InputProps={{endAdornment: < LockIcon fontSize="small"/> }} type="password" label="password" variant="outlined"/>
                             <Typography color="error">{errors.password?.message}</Typography>
                         </Grid>
-
                         <Grid item>
                             <Button type="submit" size="small" endIcon={<SendIcon/>}  variant="contained" color="primary">submit</Button>
                         

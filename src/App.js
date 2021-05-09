@@ -24,7 +24,7 @@ export default function App() {
        <Switch>
          <Route  exact path="/signup" component={SignUp}/>
          <Route  path="/signin"component={SignIn}/>
-         <Route  path="/profile" component={Profile}/>
+         <Route  path="/profile/:id" component={Profile}/>
        </Switch>
      </Router>
      </UserProvider>

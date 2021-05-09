@@ -21,22 +21,29 @@ const schema = yup.object().shape({
   });
  
  
-const SignUp = () => {
+const SignUp = (props) => {
 const [loading, setLoading] = useState(false)
 const [error, setError] = useState("")
 const { register, handleSubmit,reset, formState:{ errors } } = useForm({
         resolver: yupResolver(schema)
 });
 const onSubmit = async(data) => {
+    let newUser;
     setLoading(true)
     try {
-        await signup(data);
+        newUser = await signup(data);
         reset();
         setLoading(false)
     }catch(error){
         console.log(error)
         setError(error.message)
-    }setLoading(false)
+    
+    }
+    if (newUser ) { props.history.push(`/profile/${newUser.uid}`)}
+    else{
+        setLoading(false)
+    }
+    
     
 }
 
