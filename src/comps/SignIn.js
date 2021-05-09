@@ -23,12 +23,12 @@ const onSubmit = data => console.log(data);
 
     return (
         
-        <Container >
+        <Container  style={{marginTop:120}} maxWidth="xs">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Paper elevation={2}>
                     <Grid container spacing={3} 
                         alignItems="center" 
-                        style={{marginTop:120}} 
+                        
                         direction="column"
                         justify="center">
                         <Grid item >

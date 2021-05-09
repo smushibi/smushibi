@@ -8,7 +8,8 @@ import SendIcon from '@material-ui/icons/Send';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 // firebase config /import
 import { signup} from "../firebase/auth"
 
@@ -21,34 +22,40 @@ const schema = yup.object().shape({
  
  
 const SignUp = () => {
-const [loading, setLoading] = useState(true)
+const [loading, setLoading] = useState(false)
+const [error, setError] = useState("")
 const { register, handleSubmit,reset, formState:{ errors } } = useForm({
         resolver: yupResolver(schema)
 });
 const onSubmit = async(data) => {
+    setLoading(true)
     try {
         await signup(data);
         reset();
         setLoading(false)
     }catch(error){
         console.log(error)
-    }
+        setError(error.message)
+    }setLoading(false)
+    
 }
 
 
     return (
         
-        <Container >
+        <Container maxWidth="xs" >
+          
             <form onSubmit={handleSubmit(onSubmit)}>
-                {loading && <Container><LinearProgress/></Container>}
+                
                 <Paper elevation={2}>
                     <Grid container spacing={3} 
                         alignItems="center" 
-                        style={{marginTop:120}} 
+                        style={{marginTop:100}} 
                         direction="column"
                         justify="center">
                         <Grid item >
-                            <Typography variant="h4" color="primary">Sign Up </Typography>
+                            {error && <Typography align="center" color="error">{error}</Typography>}
+                            <Typography variant="h4" align="center" color="primary">Sign Up </Typography>
                             
                             </Grid>
                         <Grid item>
@@ -70,6 +77,10 @@ const onSubmit = async(data) => {
                         <Grid item>
                             <Button type="submit" size="small" endIcon={<SendIcon/>}  variant="contained" color="primary">submit</Button>
                         
+                        </Grid>
+                        <Grid item>
+                                
+                                {loading && <CircularProgress/>}
                         </Grid>
                     </Grid>
                 </Paper>
