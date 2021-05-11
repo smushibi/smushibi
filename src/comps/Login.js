@@ -6,6 +6,7 @@ import SendIcon from '@material-ui/icons/Send';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { Link } from 'react-router-dom';
 
 const schema = yup.object().shape({
     
@@ -44,6 +45,9 @@ const onSubmit = data => console.log(data);
                         <Grid item>
                             <Button type="submit" size="small" endIcon={<SendIcon/>}  variant="contained" color="primary">submit</Button>
                         
+                        </Grid>
+                        <Grid item>
+                            <Typography color="primary" variant="h6"><Link style={{textDecorationLine:'none'}} to="/signup">Sign Up</Link></Typography>
                         </Grid>
                     </Grid>
                 </Paper>

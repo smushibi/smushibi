@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Paper, TextField, Typography } from '@material-ui/core';
+import { Button, Container, Grid, Paper, TextField, Typography  } from '@material-ui/core';
 import React, { useState } from 'react';
 import LockIcon from '@material-ui/icons/Lock';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -12,6 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // firebase config /import
 import { signup} from "../firebase/auth"
+import { Link } from 'react-router-dom';
 
 const schema = yup.object().shape({
     firstName: yup.string().required("your last name ! "),
@@ -61,7 +62,7 @@ const onSubmit = async(data) => {
                         direction="column"
                         justify="center">
                         <Grid item >
-                            {error && <Typography align="center" color="error">{error}</Typography>}
+                            {!!error && <Typography align="center" color="error">{error}</Typography>}
                             <Typography variant="h4" align="center" color="primary">Sign Up </Typography>
                             
                             </Grid>
@@ -86,8 +87,12 @@ const onSubmit = async(data) => {
                         
                         </Grid>
                         <Grid item>
-                                
-                                {loading && <CircularProgress/>}
+                            <Typography  color="primary"  variant="h6"  ><Link style={{textDecorationLine:'none'}}  to="/login">log in</Link></Typography>
+                        </Grid>
+                        <Grid item>
+                        {loading &&
+                            <CircularProgress color="primary"/>
+                            }
                         </Grid>
                     </Grid>
                 </Paper>
