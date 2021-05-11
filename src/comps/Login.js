@@ -1,5 +1,5 @@
 import { Button, Container, Grid, Paper, TextField, Typography } from '@material-ui/core';
-import React from 'react';
+import React, {useState} from 'react';
 import LockIcon from '@material-ui/icons/Lock';
 import EmailIcon from '@material-ui/icons/Email';
 import SendIcon from '@material-ui/icons/Send';
@@ -7,6 +7,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { Link } from 'react-router-dom';
+import { login } from '../firebase/auth';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const schema = yup.object().shape({
     
@@ -15,13 +18,32 @@ const schema = yup.object().shape({
 
   });
 
-const SignIn = () => {
+const SignIn = (props) => {
 
-const { register, handleSubmit, formState:{ errors } } = useForm({
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
+
+const { register, handleSubmit,reset, formState:{ errors } } = useForm({
         resolver: yupResolver(schema)
 });
-const onSubmit = data => console.log(data);
-
+const onSubmit = async(data) => {
+    let user;
+    setLoading(true)
+    try {
+        user = await login(data);
+        reset();
+        setLoading(false)
+    }catch(error){
+        console.log(error)
+        setError(error.message)
+        }
+    if (user ) { props.history.push(`/profile/${user.uid}`)}
+    else{
+        setLoading(false)
+    }
+    
+    
+}
     return (
         
         <Container  style={{marginTop:120}} maxWidth="xs">
@@ -32,7 +54,8 @@ const onSubmit = data => console.log(data);
                         direction="column"
                         justify="center">
                         <Grid item >
-                            <Typography variant="h4" color="primary">Sign In </Typography>
+                            {!!error && <Typography align="center" color="error">{error}</Typography>}
+                            <Typography variant="h4" color="primary">Log in </Typography>
                         </Grid>
                         <Grid item>
                             <TextField size="small" {...register("email")}required InputProps={{endAdornment: < EmailIcon  fontSize="small"/> }} type="email" label="email" variant="outlined"/>
@@ -48,6 +71,11 @@ const onSubmit = data => console.log(data);
                         </Grid>
                         <Grid item>
                             <Typography color="primary" variant="h6"><Link style={{textDecorationLine:'none'}} to="/signup">Sign Up</Link></Typography>
+                        </Grid>
+                        <Grid item>
+                            {loading &&
+                            <CircularProgress color="primary"/>
+                            }
                         </Grid>
                     </Grid>
                 </Paper>

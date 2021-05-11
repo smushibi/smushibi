@@ -87,7 +87,7 @@ const onSubmit = async(data) => {
                         
                         </Grid>
                         <Grid item>
-                            <Typography  color="primary"  variant="h6"  ><Link style={{textDecorationLine:'none'}}  to="/login">log in</Link></Typography>
+                            <Typography  color="primary"  variant="h6"  ><Link style={{textDecorationLine:'none'}}  to="/login">Log in</Link></Typography>
                         </Grid>
                         <Grid item>
                         {loading &&
